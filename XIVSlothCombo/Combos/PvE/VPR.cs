@@ -234,7 +234,7 @@ namespace XIVSlothCombo.Combos.PvE
                         return UncoiledFury;
 
                     // Reawakened 60s Usage
-                    if (gauge.SerpentOffering >= 50 && GetCooldownRemainingTime(SerpentsIre) < 45)
+                    if (gauge.SerpentOffering >= 50 && GetCooldownRemainingTime(SerpentsIre) < 50)
                     {
                         if (GetCooldownRemainingTime(SerpentsIre) > 80 &&
                             GetBuffRemainingTime(Buffs.Swiftscaled) >= 14 &&
