@@ -343,13 +343,21 @@ namespace XIVSlothCombo.Combos.PvE
                                 (IsEnabled(CustomComboPreset.DRG_ST_Stardiver_Movement) && !IsMoving)))
                                 return Stardiver;
 
+                            //Jump Feature   
+                            if (IsEnabled(CustomComboPreset.DRG_ST_HighJump) &&
+                                AnimationLock.CanDRGWeave(OriginalHook(Jump)) &&
+                                !LevelChecked(HighJump) && ActionReady(OriginalHook(Jump)) &&
+                                (!IsEnabled(CustomComboPreset.DRG_ST_HighJump_Movement) ||
+                                (IsEnabled(CustomComboPreset.DRG_ST_HighJump_Movement) && !IsMoving)))
+                                return Jump;
+
                             //(High) Jump Feature   
                             if (IsEnabled(CustomComboPreset.DRG_ST_HighJump) &&
                                 AnimationLock.CanDRGWeave(OriginalHook(Jump)) &&
-                                ActionReady(OriginalHook(Jump)) &&
+                                LevelChecked(HighJump) && ActionReady(HighJump) &&
                                 (!IsEnabled(CustomComboPreset.DRG_ST_HighJump_Movement) ||
                                 (IsEnabled(CustomComboPreset.DRG_ST_HighJump_Movement) && !IsMoving)))
-                                return OriginalHook(Jump);
+                                return HighJump;
 
                             //Wyrmwind Thrust Feature
                             if (IsEnabled(CustomComboPreset.DRG_ST_Wyrmwind) &&
@@ -385,8 +393,9 @@ namespace XIVSlothCombo.Combos.PvE
                             //Mirage Feature
                             if (IsEnabled(CustomComboPreset.DRG_ST_Mirage) &&
                                 AnimationLock.CanDRGWeave(MirageDive) &&
+                                !HasEffect(Buffs.DragonsFlight) && !HasEffect(Buffs.StarcrossReady) && !HasEffect(Buffs.NastrondReady) &&
                                 HasEffect(Buffs.DiveReady))
-                                return OriginalHook(HighJump);
+                                return MirageDive;
 
                         }
                     }
@@ -409,10 +418,9 @@ namespace XIVSlothCombo.Combos.PvE
                             return (LevelChecked(OriginalHook(Disembowel)) &&
                                 (ChaosDoTDebuff is null ||
                                 ChaosDoTDebuff.RemainingTime < GCD * 5 ||
-                                GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 7 ||
-                                GetCooldownRemainingTime(LanceCharge) < GCD * 4)) ||
+                                GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 7) ||
                                 (!LevelChecked(ChaosThrust) &&
-                                GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 4)
+                                GetBuffRemainingTime(Buffs.PowerSurge) < GCD * 4))
                                 ? OriginalHook(Disembowel)
                                 : OriginalHook(VorpalThrust);
                         }

@@ -1,5 +1,6 @@
 using Dalamud.Game.ClientState.JobGauge.Enums;
 using Dalamud.Game.ClientState.JobGauge.Types;
+using Lumina.Excel.GeneratedSheets2;
 using System;
 using System.Linq;
 using XIVSlothCombo.Combos.JobHelpers;
@@ -356,6 +357,7 @@ namespace XIVSlothCombo.Combos.PvE
         {
             protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.VPR_ST_AdvancedMode;
             internal static VPROpenerLogic VPROpener = new();
+            float GCD = GetCooldown(SteelFangs).CooldownTotal;
 
             protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
             {
@@ -610,6 +612,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                 if (IsEnabled(CustomComboPreset.VPR_ST_Reawaken) &&
                     HasEffect(Buffs.Swiftscaled) && HasEffect(Buffs.HuntersInstinct) && LevelChecked(Reawaken) &&
+                    GetBuffRemainingTime(Buffs.Swiftscaled) > 12 && GetBuffRemainingTime(Buffs.HuntersInstinct) > 12 &&
                     !HasEffect(Buffs.Reawakened) &&
                     !HasEffect(Buffs.HuntersVenom) && !HasEffect(Buffs.SwiftskinsVenom) &&
                     !HasEffect(Buffs.PoisedForTwinblood) && !HasEffect(Buffs.PoisedForTwinfang) &&
@@ -624,8 +627,9 @@ namespace XIVSlothCombo.Combos.PvE
                         return true;
 
                     // odd minutes
-                    if (gauge.SerpentOffering >= 50 &&
-                        GetCooldownRemainingTime(SerpentsIre) is >= 50 and <= 65)
+                    if ((gauge.SerpentOffering >= 50 && GetCooldownRemainingTime(SerpentsIre) is >= 50 and <= 65) ||
+                        gauge.SerpentOffering == 100 ||
+                        (gauge.SerpentOffering >= 50 && WasLastWeaponskill(Ouroboros)))
                         return true;
 
                     // 6 minutes
@@ -638,7 +642,7 @@ namespace XIVSlothCombo.Combos.PvE
 
                     // 7min 2RA
                     if (SerpentsIreUsed == 4 &&
-                        (gauge.SerpentOffering >= 95 ||
+                        (gauge.SerpentOffering == 100 ||
                         (gauge.SerpentOffering >= 50 && WasLastWeaponskill(Ouroboros))) &&
                         GetCooldownRemainingTime(SerpentsIre) is >= 45 and <= 90)
                         return true;
@@ -697,6 +701,7 @@ namespace XIVSlothCombo.Combos.PvE
                     //Reawakend Usage
                     if ((HasEffect(Buffs.ReadyToReawaken) || gauge.SerpentOffering >= 50) && LevelChecked(Reawaken) &&
                         HasEffect(Buffs.Swiftscaled) && HasEffect(Buffs.HuntersInstinct) &&
+                        GetBuffRemainingTime(Buffs.Swiftscaled) > GCD * 7 && GetBuffRemainingTime(Buffs.HuntersInstinct) > GCD * 7 &&
                         !HasEffect(Buffs.Reawakened) &&
                         !HasEffect(Buffs.FellhuntersVenom) && !HasEffect(Buffs.FellskinsVenom) &&
                         !HasEffect(Buffs.PoisedForTwinblood) && !HasEffect(Buffs.PoisedForTwinfang))
@@ -710,7 +715,8 @@ namespace XIVSlothCombo.Combos.PvE
                         return UncoiledFury;
 
                     //Serpents Ire usage
-                    if (CanWeave(actionID) && gauge.RattlingCoilStacks <= 2 && ActionReady(SerpentsIre) && !HasEffect(Buffs.Reawakened))
+                    if (CanWeave(actionID) && gauge.RattlingCoilStacks <= 2 && ActionReady(SerpentsIre) &&
+                        (!WasLastAbility(FirstGeneration) || !WasLastAbility(SecondGeneration) || !WasLastAbility(ThirdGeneration) || !WasLastAbility(FourthGeneration)))
                         return SerpentsIre;
 
                     //Vicepit Usage
