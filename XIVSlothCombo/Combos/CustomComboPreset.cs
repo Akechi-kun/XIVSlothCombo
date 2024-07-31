@@ -2315,7 +2315,7 @@ namespace XIVSlothCombo.Combos
         PLD_ST_AdvancedMode_SpiritsWithin = 11006,
 
         [ParentCombo(PLD_ST_AdvancedMode)]
-        [CustomComboInfo("Sheltron Option", "Adds Sheltron to Advanced Mode.\n- Uses only while in combat.\n- Will not interrupt burst phase.\n- Required HP & gauge thresholds:", PLD.JobID, 3)]
+        [CustomComboInfo("Sheltron Option", "Adds Sheltron to Advanced Mode.\n- Uses only when taking damage.\n- Will not interrupt burst phase.\n- Required gauge threshold:", PLD.JobID, 3)]
         PLD_ST_AdvancedMode_Sheltron = 11007,
 
         [ParentCombo(PLD_ST_AdvancedMode)]
@@ -2349,6 +2349,10 @@ namespace XIVSlothCombo.Combos
         [ParentCombo(PLD_ST_AdvancedMode)]
         [CustomComboInfo("Blade of Honor Option", "Adds Blade of Honor to Advanced Mode.\n- Uses after Blade of Valor.", PLD.JobID, 12)]
         PLD_ST_AdvancedMode_BladeOfHonor = 11033,
+
+        [ParentCombo(PLD_ST_AdvancedMode)]
+        [CustomComboInfo("MP Reserve Feature", "Only use MP-consuming skills in Advanced Mode - ST when above set threshold.", PLD.JobID)]
+        PLD_ST_AdvancedMode_MP_Reserve = 11035,
 
         // AoE Advanced Mode
 
@@ -2390,8 +2394,12 @@ namespace XIVSlothCombo.Combos
         PLD_AoE_AdvancedMode_BladeOfHonor = 11034,
 
         [ParentCombo(PLD_AoE_AdvancedMode)]
-        [CustomComboInfo("Sheltron Option", "Adds Sheltron to Advanced Mode.\n- Uses only while in combat.\n- Will not interrupt burst phase.\n- Required HP & gauge thresholds:", PLD.JobID, 3)]
+        [CustomComboInfo("Sheltron Option", "Adds Sheltron to Advanced Mode.\n- Uses only when taking damage.\n- Will not interrupt burst phase.\n- Required gauge threshold:", PLD.JobID, 3)]
         PLD_AoE_AdvancedMode_Sheltron = 11023,
+
+        [ParentCombo(PLD_AoE_AdvancedMode)]
+        [CustomComboInfo("MP Reserve Feature", "Only use MP-consuming skills in Advanced Mode - AoE when above set threshold.", PLD.JobID)]
+        PLD_AoE_AdvancedMode_MP_Reserve = 11036,
 
         // Extra Features
 
@@ -2430,7 +2438,7 @@ namespace XIVSlothCombo.Combos
         [CustomComboInfo("Ultimatum Feature", "Uses Variant Ultimatum on cooldown as long as the target is within range.", PLD.JobID)]
         PLD_Variant_Ultimatum = 11032,
 
-        //// Last value = 11034
+        //// Last value = 11036
 
         #endregion
 
@@ -3803,6 +3811,10 @@ namespace XIVSlothCombo.Combos
         [CustomComboInfo("Vicewinder - Coils", "Replaces Vicewinder with Hunter's/Swiftskin's Coils.", VPR.JobID)]
         VPR_VicewinderCoils = 30200,
 
+        [ParentCombo(VPR_VicewinderCoils)]
+        [CustomComboInfo("Dynamic True North Option", "Adds True North when you are not in the correct position for the enhanced potency bonus.", VPR.JobID)]
+        VPR_VicewinderCoilsTN = 30208,
+
         [ReplaceSkill(VPR.Vicepit)]
         [CustomComboInfo("Vicepit - Dens", "Replaces Vicepit with Hunter's/Swiftskin's Dens.", VPR.JobID)]
         VPR_VicepitDens = 30201,
@@ -3831,14 +3843,14 @@ namespace XIVSlothCombo.Combos
         [ParentCombo(VPR_VicepitDens)]
         [CustomComboInfo("Include Twin Combo Actions", "Adds Twinfang and Twinblood to the button.", VPR.JobID)]
         VPR_VicepitDens_oGCDs = 30207,
-
+        
         #endregion
 
         #region WARRIOR
 
         [ReplaceSkill(WAR.StormsPath)]
         [CustomComboInfo("Advanced Mode - Single Target", "Replaces Storm's Path with a one-button full single target rotation.\nThese features are ideal if you want to customize the rotation.", WAR.JobID, 1)]
-        WAR_ST_StormsPath = 18000, 
+        WAR_ST_StormsPath = 18000,
 
         [ParentCombo(WAR_ST_StormsPath)]
         [CustomComboInfo("Berserk / Inner Release Option", "Adds Berserk / Inner Release to Advanced Mode.", WAR.JobID)]
