@@ -193,8 +193,7 @@ namespace XIVSlothCombo.Combos.PvE
                         return UncoiledFury;
 
                     //Serpents Ire usage
-                    if (CanWeave(actionID) && !CappedOnCoils && ActionReady(SerpentsIre) &&
-                        !HasEffect(Buffs.Reawakened))
+                    if (CanWeave(actionID) && !CappedOnCoils && ActionReady(SerpentsIre))
                         return SerpentsIre;
 
                     //Vicewinder Usage
@@ -471,8 +470,7 @@ namespace XIVSlothCombo.Combos.PvE
                     //Serpents Ire usage
                     if (IsEnabled(CustomComboPreset.VPR_ST_CDs) &&
                         IsEnabled(CustomComboPreset.VPR_ST_SerpentsIre) &&
-                        CanWeave(actionID) && !CappedOnCoils && ActionReady(SerpentsIre) &&
-                        !HasEffect(Buffs.Reawakened))
+                        CanWeave(actionID) && !CappedOnCoils && ActionReady(SerpentsIre))
                         return SerpentsIre;
 
                     //Vicewinder Usage
@@ -480,7 +478,7 @@ namespace XIVSlothCombo.Combos.PvE
                         IsEnabled(CustomComboPreset.VPR_ST_Vicewinder) &&
                         ActionReady(Vicewinder) && !HasEffect(Buffs.Reawakened) &&
                         ((GetCooldownRemainingTime(SerpentsIre) >= GCD * 5) || !LevelChecked(SerpentsIre)) &&
-                         !VPRCheckTimers.IsVenomExpiring(6) && !VPRCheckTimers.IsComboExpiring(6) && !VPRCheckTimers.IsHoningExpiring(6))
+                         !VPRCheckTimers.IsVenomExpiring(7) && !VPRCheckTimers.IsComboExpiring(6) && !VPRCheckTimers.IsHoningExpiring(6))
                         return Vicewinder;
 
                     // Uncoiled Fury usage
@@ -599,9 +597,9 @@ namespace XIVSlothCombo.Combos.PvE
             {
                 int SerpentsIreUsed = ActionWatching.CombatActions.Count(x => x == SerpentsIre);
 
-                if (IsEnabled(CustomComboPreset.VPR_ST_Reawaken) &&
-                    HasEffect(Buffs.Swiftscaled) && HasEffect(Buffs.HuntersInstinct) && LevelChecked(Reawaken) &&
-                    GetBuffRemainingTime(Buffs.Swiftscaled) > 12 && GetBuffRemainingTime(Buffs.HuntersInstinct) > 12 &&
+                if (IsEnabled(CustomComboPreset.VPR_ST_Reawaken) && LevelChecked(Reawaken) &&
+                    HasEffect(Buffs.Swiftscaled) && HasEffect(Buffs.HuntersInstinct) &&
+                    GetBuffRemainingTime(Buffs.Swiftscaled) > 15 && GetBuffRemainingTime(Buffs.HuntersInstinct) > 15 &&
                     !HasEffect(Buffs.Reawakened) &&
                     !HasEffect(Buffs.HuntersVenom) && !HasEffect(Buffs.SwiftskinsVenom) &&
                     !HasEffect(Buffs.PoisedForTwinblood) && !HasEffect(Buffs.PoisedForTwinfang) &&
